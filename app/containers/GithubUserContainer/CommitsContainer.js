@@ -9,10 +9,9 @@ export default class CommitsContainer extends React.PureComponent {
       <div>
         <h3>Last 10 commits:</h3>
         <ul>
-          {this.props.commits &&
-            this.props.commits.map((commit, index) =>
-              <Commit key={index} message={commit.commit.message} />
-            )}
+          {this.props.commits.map((commit, index) =>
+            <Commit key={index} message={commit.commit.message} />
+          )}
         </ul>
       </div>
     );
