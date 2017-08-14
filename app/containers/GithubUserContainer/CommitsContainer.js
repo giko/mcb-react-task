@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Commit from './Commit';
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default class extends React.PureComponent {
+export default class CommitsContainer extends React.PureComponent {
   render() {
     return (
       <div>
@@ -18,3 +18,7 @@ export default class extends React.PureComponent {
     );
   }
 }
+
+CommitsContainer.propTypes = {
+  commits: PropTypes.array.isRequired,
+};

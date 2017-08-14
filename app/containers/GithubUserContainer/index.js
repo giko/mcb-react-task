@@ -28,12 +28,17 @@ const SearchComponent = withState('searchText', 'setSearchText', 'giko')(
   SearchComponentStateless
 );
 
+SearchComponentStateless.propTypes = {
+  searchText: PropTypes.string.isRequired,
+  setSearchText: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
+};
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class GithubUserContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'giko',
       commits: [],
     };
   }
@@ -71,7 +76,8 @@ export class GithubUserContainer extends React.PureComponent {
 }
 
 GithubUserContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
+  githubUserContainer: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

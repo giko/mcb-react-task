@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default class extends React.PureComponent {
+export default class Commit extends React.PureComponent {
   render() {
     return (
       <li>
-        {`${this.props.message} `}
+        {this.props.message}
       </li>
     );
   }
 }
+
+Commit.propTypes = {
+  message: PropTypes.string.isRequired,
+};
