@@ -6,7 +6,7 @@ import Commit from './Commit';
 export default class extends React.PureComponent {
   render() {
     return (
-      <div className="commit-container">
+      <div>
         <h3>Last 10 commits:</h3>
         <ul>
           {this.props.commits &&
