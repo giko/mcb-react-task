@@ -44,13 +44,16 @@ export function requestPromise(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then((data) => ({ data }))
+    .catch((err) => ({ err }));
 }
 
 export function* request(url: String, options) {
-
-  const result = yield call(requestPromise, url.startsWith('http') ? url : baseUrl.concat(url), { ...options, credentials: 'omit' });
+  const result = yield call(
+    requestPromise,
+    url.startsWith('http') ? url : baseUrl.concat(url),
+    { ...options, credentials: 'omit' }
+  );
   if (result.err) {
     throw result.err;
   }
