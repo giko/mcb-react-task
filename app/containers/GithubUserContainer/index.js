@@ -8,41 +8,91 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withState } from 'recompose';
-
+import styled from 'styled-components';
+import { List, ListItem } from 'material-ui/List';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import makeSelectGithubUserContainer from './selectors';
 import * as actions from './actions';
 
-const SearchComponentStateless = ({ searchText, setSearchText, loadUser }) => <div>
-  <input type="text" value={searchText} onChange={(event) => setSearchText(event.target.value)} />
-  <button onClick={() => loadUser(searchText)}>Search</button>
-</div>;
+injectTapEventPlugin();
+
+
+const SearchComponentStateless = ({ searchText, setSearchText, loadUser }) =>
+  <SearchBar>
+    <MuiThemeProvider>
+      <SearchInput name="Github account" type="text" value={searchText} onChange={(event) => setSearchText(event.target.value)} />
+    </MuiThemeProvider>
+    <MuiThemeProvider>
+      <FlatButton onClick={() => loadUser(searchText)}>Search</FlatButton>
+    </MuiThemeProvider>
+  </SearchBar>
+;
+
+const Container = styled.div`
+  width: 1000px;
+  text-align: center;
+  margin: auto;
+`;
+
+const SearchBar = styled.div`
+  text-align: center;
+  margin: 15px;
+`;
+
+const SearchInput = styled(TextField)`
+  width: 80%;
+`;
+
+const RepoList = styled(List)`
+  float: left;
+  width: 30%;
+`;
+
+const CommitList = styled(List)`
+  float: left; 
+  width: 70%;
+`;
+
+const SearchResults = styled.div`
+  overflow: hidden;
+`;
 
 const SearchComponent = withState('searchText', 'setSearchText', 'giko')(SearchComponentStateless);
 
 export class GithubUserContainer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <Container>
         <SearchComponent loadUser={this.props.loadUser} />
-        {this.props.githubUserContainer.userRepos &&
-          this.props.githubUserContainer.userRepos.map((repo) =>
-            <button
-              key={repo.id}
-              role="button"
-              onClick={() => this.props.loadCommits(repo.owner.login, repo.name)}
-            >
-              {repo.name}
-            </button>)}
-        {this.props.githubUserContainer.userCommits &&
-          this.props.githubUserContainer.userCommits.map((commit) =>
-            <div key={commit.sha}>
-              {commit.commit.message}
-            </div>)}
-      </div>
+        <MuiThemeProvider>
+          <SearchResults>
+            <RepoList>
+              {this.props.githubUserContainer.userRepos &&
+                this.props.githubUserContainer.userRepos.map((repo) =>
+                  <ListItem
+                    key={repo.id}
+                    onClick={() => this.props.loadCommits(repo.owner.login, repo.name)}
+                  >
+                    {repo.name}
+                  </ListItem>)}
+            </RepoList>
+
+            <CommitList>
+              {this.props.githubUserContainer.userCommits &&
+                this.props.githubUserContainer.userCommits.map((commit) =>
+                  <ListItem key={commit.sha}>
+                    {commit.commit.message}
+                  </ListItem>)}
+            </CommitList>
+          </SearchResults>
+        </MuiThemeProvider>
+      </Container>
     );
   }
 }
-
 
 GithubUserContainer.propTypes = {
   githubUserContainer: PropTypes.object,
