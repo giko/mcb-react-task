@@ -24,7 +24,20 @@ export class GithubUserContainer extends React.PureComponent { // eslint-disable
     return (
       <div>
         <SearchComponent loadUser={this.props.loadUser} />
-        {this.props.githubUserContainer.userRepos && this.props.githubUserContainer.userRepos.map((repo) => <div key={repo.id}>{repo.name}</div>)}
+        {this.props.githubUserContainer.userRepos &&
+          this.props.githubUserContainer.userRepos.map((repo) =>
+            <button
+              key={repo.id}
+              role="button"
+              onClick={() => this.props.loadCommits(repo.owner.login, repo.name)}
+            >
+              {repo.name}
+            </button>)}
+        {this.props.githubUserContainer.userCommits &&
+          this.props.githubUserContainer.userCommits.map((commit) =>
+            <div key={commit.sha}>
+              {commit.commit.message}
+            </div>)}
       </div>
     );
   }
@@ -34,6 +47,7 @@ export class GithubUserContainer extends React.PureComponent { // eslint-disable
 GithubUserContainer.propTypes = {
   githubUserContainer: PropTypes.object,
   loadUser: PropTypes.func.isRequired,
+  loadCommits: PropTypes.func.isRequired,
 };
 
 SearchComponentStateless.propTypes = {
