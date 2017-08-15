@@ -8,17 +8,20 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withState } from 'recompose';
-import styled from 'styled-components';
-import { List, ListItem } from 'material-ui/List';
-import TextField from 'material-ui/TextField';
+import { ListItem } from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Container from './Container';
+import SearchInput from './SearchInput';
+import SearchBar from './SearchBar';
+import SearchResults from './SearchResults';
+import RepoList from './RepoList';
+import CommitList from './CommitList';
 import makeSelectGithubUserContainer from './selectors';
 import * as actions from './actions';
 
 injectTapEventPlugin();
-
 
 const SearchComponentStateless = ({ searchText, setSearchText, loadUser }) =>
   <SearchBar>
@@ -30,35 +33,6 @@ const SearchComponentStateless = ({ searchText, setSearchText, loadUser }) =>
     </MuiThemeProvider>
   </SearchBar>
 ;
-
-const Container = styled.div`
-  width: 1000px;
-  text-align: center;
-  margin: auto;
-`;
-
-const SearchBar = styled.div`
-  text-align: center;
-  margin: 15px;
-`;
-
-const SearchInput = styled(TextField)`
-  width: 80%;
-`;
-
-const RepoList = styled(List)`
-  float: left;
-  width: 30%;
-`;
-
-const CommitList = styled(List)`
-  float: left; 
-  width: 70%;
-`;
-
-const SearchResults = styled.div`
-  overflow: hidden;
-`;
 
 const SearchComponent = withState('searchText', 'setSearchText', 'giko')(SearchComponentStateless);
 
