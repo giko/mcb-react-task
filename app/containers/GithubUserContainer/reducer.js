@@ -11,6 +11,7 @@ import * as actions from './actions';
 
 const githubUserContainerReducer = createReducer((on) => {
   on(actions.userLoaded, (state, payload) => state.set('userRepos', payload));
-}, fromJS({}));
+  on(actions.commitsLoaded, (state, payload) => state.set('userCommits', payload));
+}, fromJS({ userRepos: [], userCommits: [] }));
 
 export default githubUserContainerReducer;
