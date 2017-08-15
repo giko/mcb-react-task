@@ -15,7 +15,7 @@ import * as actions from './actions';
 const SearchComponentStateless = ({ searchText, setSearchText, loadUser }) => <div>
   <input type="text" value={searchText} onChange={(event) => setSearchText(event.target.value)} />
   <button onClick={() => loadUser(searchText)}>Search</button>
-</div>
+</div>;
 
 const SearchComponent = withState('searchText', 'setSearchText', 'giko')(SearchComponentStateless);
 
@@ -30,8 +30,20 @@ export class GithubUserContainer extends React.PureComponent { // eslint-disable
   }
 }
 
+
 GithubUserContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  githubUserContainer: PropTypes.object,
+  loadUser: PropTypes.func.isRequired,
+};
+
+SearchComponentStateless.propTypes = {
+  loadUser: PropTypes.func.isRequired,
+  searchText: PropTypes.string,
+  setSearchText: PropTypes.func.isRequired,
+};
+
+SearchComponent.propTypes = {
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -42,6 +54,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     loadUser: (userName) => dispatch(actions.loadUser(userName)),
+    loadCommits: (userName, repoName) => dispatch(actions.loadCommits(userName, repoName)),
   };
 }
 
