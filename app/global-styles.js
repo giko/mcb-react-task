@@ -22,6 +22,22 @@ injectGlobal`
     min-width: 100%;
   }
 
+  .repo-paper {
+    position: fixed;
+    margin: 50px;
+    padding: 2rem;
+  }
+
+  .repo-list {
+    height: 500px;
+    overflow-y: auto;
+  }
+
+  .commit-list {
+    margin-left: 500px;
+    padding: 2rem;
+  }
+
   p,
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
