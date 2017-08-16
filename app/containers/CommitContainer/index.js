@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 // import Commit from '../Commit';
 
-export default class CommitContainer extends React.PureComponent {
+export default class CommitContainer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
