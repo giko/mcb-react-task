@@ -9,11 +9,11 @@ export function* searchUserReposSaga(action) {
   yield put(loadUserRepos(action.payload.userName));
 }
 
-export function* searchUserReposWatcher() {
+export function* WatchSearchingUserRepos() {
   while (true) {
     const action = yield take(actions.searchRepos.getType());
     yield call(searchUserReposSaga, action);
   }
 }
 
-export default [searchUserReposWatcher];
+export default [WatchSearchingUserRepos];

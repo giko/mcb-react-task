@@ -5,34 +5,34 @@ import { invalidateRepoCommits, loadRepoCommits } from '../GithubCommitList/acti
 
 
 // Individual exports for testing
-export function* loadReposSaga(action) {
+export function* loadRepos(action) {
   try {
     const { userName } = action.payload;
-    const result = yield call(request, `users/${userName.trim()}/repos`);
-    yield put(actions.userReposLoaded(result));
+    const repos = yield call(request, `users/${userName.trim()}/repos`);
+    yield put(actions.userReposLoaded(repos));
   } catch (e) {
     yield put(actions.userReposLoadingError(e));
   }
 }
 
-export function* userRepoSelectedSaga(action) {
+export function* removeReposAndLoadNew(action) {
   const { userName, repoName } = action.payload;
-  yield put(invalidateRepoCommits(invalidateRepoCommits()));
+  yield put(invalidateRepoCommits());
   yield put(loadRepoCommits(userName, repoName));
 }
 
-export function* loadReposWatcher() {
+export function* watchLoadingUserRepos() {
   while (true) {
     const action = yield take(actions.loadUserRepos.getType());
-    yield call(loadReposSaga, action);
+    yield call(loadRepos, action);
   }
 }
 
-export function* userRepoSelectedWatcher() {
+export function* watchUserRepoSelected() {
   while (true) {
     const action = yield take(actions.userRepoSelected.getType());
-    yield call(userRepoSelectedSaga, action);
+    yield call(removeReposAndLoadNew, action);
   }
 }
 
-export default [loadReposWatcher, userRepoSelectedWatcher];
+export default [watchLoadingUserRepos, watchUserRepoSelected];

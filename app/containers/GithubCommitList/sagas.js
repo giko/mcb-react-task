@@ -11,11 +11,11 @@ export function* loadRepoCommits(action) {
     yield put(actions.repoCommitsLoadingError(e));
   }
 }
-export function* loadRepoCommitsWatcher() {
+export function* watchLoadingRepoCommits() {
   while (true) {
     const action = yield take(actions.loadRepoCommits.getType());
     yield call(loadRepoCommits, action);
   }
 }
 
-export default [loadRepoCommitsWatcher];
+export default [watchLoadingRepoCommits];

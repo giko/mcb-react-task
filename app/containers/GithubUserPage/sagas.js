@@ -1,10 +1,10 @@
-import loadReposWatcher from '../GithubRepoList/sagas';
-import githubCommitWatcher from '../GithubCommitList/sagas';
-import searchUserReposWatcher from '../UserReposSearch/sagas';
+import githubRepoListWatchers from '../GithubRepoList/sagas';
+import GithubCommitListWatchers from '../GithubCommitList/sagas';
+import UserReposSearchWatchers from '../UserReposSearch/sagas';
 
 // All sagas to be loaded
 export default [
-  ...loadReposWatcher,
-  ...githubCommitWatcher,
-  ...searchUserReposWatcher,
+  ...githubRepoListWatchers,
+  ...GithubCommitListWatchers,
+  ...UserReposSearchWatchers,
 ];
