@@ -5,6 +5,7 @@
 */
 
 import React, { PropTypes } from 'react';
+import { ListItem } from 'material-ui/List';
 // import styled from 'styled-components';
 
 
@@ -17,9 +18,9 @@ class RepoListItem extends React.PureComponent {
   render() {
     const { item } = this.props;
     return (
-      <li onClick={this.onClick}>
+      <ListItem onClick={this.onClick}>
         {item.name}
-      </li>
+      </ListItem>
     );
   }
 }

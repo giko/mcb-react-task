@@ -12,6 +12,7 @@
  */
 
 import React, { PureComponent } from 'react';
+import { MuiThemeProvider } from 'material-ui';
 
 export default class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -21,9 +22,11 @@ export default class App extends PureComponent { // eslint-disable-line react/pr
 
   render() {
     return (
-      <div>
-        {React.Children.toArray(this.props.children)}
-      </div>
+      <MuiThemeProvider>
+        <div>
+          {React.Children.toArray(this.props.children)}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

@@ -12,7 +12,10 @@ const selectGithubUserPageDomain = () => (state) => state.get('GithubUserPage');
 
 const makeSelectorShouldShowCommitList = () => createSelector(
   selectGithubUserPageDomain(),
-  (substate) => !!substate.userRepos.get('data')
+  (substate) => {
+    const data = substate.userRepos.get('data');
+    return !!data && !!data.length;
+  }
 );
 
 

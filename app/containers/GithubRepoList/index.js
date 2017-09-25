@@ -12,30 +12,38 @@ import RepoListItem from '../../components/RepoListItem';
 import ListWithMessages from '../../components/ListWithMessages';
 import { userRepoSelected } from './actions';
 
-export class GithubUserContainer extends PureComponent {
+export class GithubRepoList extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   onRepoClick = (repoId) => {
     const { onRepoClick, items } = this.props;
     const repository = items.find((repo) => repo.id === repoId);
     const { userName, name } = repository;
     onRepoClick(userName, name);
+    this.setState({ activeItem: repoId });
   };
 
   render() {
-    const { items, loading, error } = this.props;
+    const { items, loading, error, className } = this.props;
+    const { activeItem } = this.state;
     return (
       <ListWithMessages
         loading={loading}
         listItemType={RepoListItem}
         error={error}
         items={items}
-        defaultMessage={'Type something...'}
         onItemClick={this.onRepoClick}
+        activeId={activeItem}
+        onNoItemsMessage={'This user have no repositories'}
+        className={className}
       />
     );
   }
 }
 
-GithubUserContainer.propTypes = {
+GithubRepoList.propTypes = {
   items: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
@@ -46,6 +54,7 @@ GithubUserContainer.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
+  className: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -60,4 +69,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GithubUserContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(GithubRepoList);

@@ -11,14 +11,16 @@ import { makeSelectError, makeSelectLoading, makeSelectItems } from './selectors
 import CommitListItem from '../../components/CommitListItem';
 import ListWithMessages from '../../components/ListWithMessages';
 
-export function GithubCommitList({ items, loading, error }) {
+export function GithubCommitList({ items, loading, error, className }) {
   return (
     <ListWithMessages
       loading={loading}
       listItemType={CommitListItem}
       error={error}
       items={items}
-      defaultMessage={'Click on repo to see commits'}
+      defaultMessage={'Click on a repository to see commits'}
+      onNoItemsMessage={'This repository have no commits'}
+      className={className}
     />
   );
 }
@@ -33,6 +35,7 @@ GithubCommitList.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
+  className: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -7,19 +7,24 @@
 
 import React, { PropTypes } from 'react';
 import List from '../List';
+import {Message} from "./styles";
 // import styled from 'styled-components';
 
 
-function ListWithMessages({ listItemType, items, loading, error, onLoadingMessage, onErrorMessage, defaultMessage, ...props }) {
-  if (items) {
+function ListWithMessages({ className, listItemType, items, loading, error, onLoadingMessage, onErrorMessage, defaultMessage, onNoItemsMessage, ...props }) {
+  if (items && items.length) {
     return (
-      <List ListItem={listItemType} items={items} {...props} />
+      <List className={className} ListItem={listItemType} items={items} {...props} />
     );
   }
-  const message = loading ? onLoadingMessage : error ? onErrorMessage : defaultMessage;
+  const message = loading ? onLoadingMessage
+    : error ? onErrorMessage
+      : items ? onNoItemsMessage : defaultMessage;
 
   return (
-    <div>{message}</div>
+    <Message className={className}>
+      {message}
+    </Message>
   );
 }
 
@@ -37,11 +42,14 @@ ListWithMessages.propTypes = {
   onLoadingMessage: PropTypes.string,
   onErrorMessage: PropTypes.string,
   defaultMessage: PropTypes.string,
+  onNoItemsMessage: PropTypes.string,
+  className: PropTypes.string,
 };
 
 ListWithMessages.defaultProps = {
-  onLoadingMessage: 'Loading..',
-  onErrorMessage: 'Something went wrong..',
+  onLoadingMessage: 'Loading...',
+  onErrorMessage: 'Something went wrong...',
+  onNoItemsMessage: '',
   defaultMessage: '',
 };
 

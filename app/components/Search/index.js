@@ -5,7 +5,8 @@
 */
 
 import React, { PropTypes, PureComponent } from 'react';
-// import styled from 'styled-components';
+import FlatButton from 'material-ui/FlatButton';
+import { FormControl } from './styles';
 
 class Search extends PureComponent {
   onSubmit = (e) => {
@@ -21,8 +22,8 @@ class Search extends PureComponent {
     const { searchText } = this.props;
     return (
       <form onSubmit={this.onSubmit}>
-        <input required type="text" value={searchText} onChange={this.onChange} />
-        <button type="submit">Search</button>
+        <FormControl required type="text" value={searchText} onChange={this.onChange} name="Search" />
+        <FlatButton type="submit" label="Search" primary />
       </form>
     );
   }

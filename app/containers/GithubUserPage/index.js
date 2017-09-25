@@ -7,19 +7,20 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import GithubRepoList from '../GithubRepoList';
-import GithubCommitList from '../GithubCommitList';
 import UserReposSearch from '../UserReposSearch';
 import { makeSelectorShouldShowCommitList } from './selectors';
+import { Lists, StyledGithubCommitList, StyledGithubRepoList, Wrapper } from './styles';
 
 
 export function GithubUserPage({ shouldShowCommitList }) {
   return (
-    <div>
+    <Wrapper>
       <UserReposSearch />
-      <GithubRepoList />
-      {shouldShowCommitList && <GithubCommitList />}
-    </div>
+      <Lists>
+        <StyledGithubRepoList />
+        {shouldShowCommitList && <StyledGithubCommitList />}
+      </Lists>
+    </Wrapper>
   );
 }
 

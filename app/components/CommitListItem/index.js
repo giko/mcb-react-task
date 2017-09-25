@@ -5,15 +5,19 @@
 */
 
 import React, { PropTypes } from 'react';
+import { ListItem } from 'material-ui/List';
+import { Link } from './styles';
 // import styled from 'styled-components';
 
 
 function CommitListItem({ item }) {
   const { name, url } = item;
   return (
-    <li>
-      <a href={url} target="_blank">{name}</a>
-    </li>
+    <Link href={url} target="_blank">
+      <ListItem>
+        {name}
+      </ListItem>
+    </Link>
   );
 }
 
