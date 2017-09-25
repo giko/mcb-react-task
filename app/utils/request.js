@@ -48,7 +48,7 @@ export function requestPromise(url, options) {
     .catch(err => ({ err }));
 }
 
-export function* request(url: String, options) {
+export function* request(url, options) {
 
   const result = yield call(requestPromise, url.startsWith('http') ? url : baseUrl.concat(url), { ...options, credentials: 'omit' });
   if (result.err) {

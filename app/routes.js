@@ -38,15 +38,15 @@ export default function createRoutes(store) {
       name: 'githubUserContainer',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/GithubUserContainer/reducer'),
-          import('containers/GithubUserContainer/sagas'),
-          import('containers/GithubUserContainer'),
+          import('containers/GithubUserPage/reducer'),
+          import('containers/GithubUserPage/sagas'),
+          import('containers/GithubUserPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('githubUserContainer', reducer.default);
+          injectReducer('GithubUserPage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
